@@ -18,7 +18,7 @@ from sensor_msgs.msg import Image
 
 from std_msgs.msg import String, Bool
 
-DEFAULT_ENCODINGS_PATH = Path("/home/sriram54/face_recognizer/src/output/encodings.pkl")
+DEFAULT_ENCODINGS_PATH = Path("/home/asimov/face_reg_ws/src/output/encodings.pkl")
 
 class FaceRecognition:
 
@@ -26,7 +26,7 @@ class FaceRecognition:
         
         self.bridge = CvBridge()
 
-        rospy.Subscriber("/webcam/image_raw", Image, self.image_callback, queue_size=1)
+        rospy.Subscriber("/camera/image_raw", Image, self.image_callback, queue_size=1)
 
         rospy.Subscriber("/face_control", Bool, self.control_cb, queue_size=1)
 

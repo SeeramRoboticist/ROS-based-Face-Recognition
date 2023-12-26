@@ -8,7 +8,7 @@ from collections import Counter
 
 from PIL import Image, ImageDraw
 
-DEFAULT_ENCODINGS_PATH = Path("/home/sriram54/face_recognizer/output/encodings.pkl")
+DEFAULT_ENCODINGS_PATH = Path("/home/asimov/face_reg_ws/src/output/encodings.pkl")
 
 BOUNDING_BOX_COLOR = "blue"
 TEXT_COLOR = "white"
@@ -20,7 +20,7 @@ TEXT_COLOR = "white"
 def encode_known_faces(model: str = "hog", encodings_location: Path = DEFAULT_ENCODINGS_PATH) -> None:
     names = []
     encodings = []
-    for filepath in Path("/home/sriram54/face_recognizer/training").glob("*/*"):
+    for filepath in Path("/home/asimov/face_reg_ws/src/training").glob("*/*"):
         name = filepath.parent.name
         image = face_recognition.load_image_file(filepath)
 
