@@ -12,9 +12,9 @@ import cv2
 
 import time
 
-video_capture = cv2.VideoCapture(1)
+video_capture = cv2.VideoCapture(0)
 
-DEFAULT_ENCODINGS_PATH = Path("/home/sriram54/face_recognizer/output/encodings.pkl")
+DEFAULT_ENCODINGS_PATH = Path("/home/asimov/face_reg_ws/src/output/encodings.pkl")
 
 BOUNDING_BOX_COLOR = "blue"
 TEXT_COLOR = "white"
@@ -32,10 +32,14 @@ def face_reg():
 
         ret, frame = video_capture.read()
 
+        degree_rotation = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
-        cv2.imshow('lol', frame)
+        flip = cv2.flip(degree_rotation, 1)
 
-        recognize_faces(image_location=frame)
+
+        cv2.imshow('lol', flip)
+
+        recognize_faces(image_location=flip)
 
         # print(name)
         # print(bounding_box)

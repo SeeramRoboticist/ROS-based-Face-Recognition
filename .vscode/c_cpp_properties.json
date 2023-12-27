@@ -1,0 +1,41 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/asimov/IRA_V2_ws/devel/include/**",
+        "/home/asimov/cyientbot_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/ros_controllers/ackermann_steering_controller/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/vision_opencv-noetic/cv_bridge/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/ros_controllers/diff_drive_controller/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/DynamixelSDK/ros/dynamixel_sdk/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/dynamixel-workbench/dynamixel_workbench_controllers/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/dynamixel-workbench/dynamixel_workbench_operators/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/dynamixel-workbench/dynamixel_workbench_toolbox/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/ros_controllers/effort_controllers/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/ros_controllers/force_torque_sensor_controller/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/ros_controllers/forward_command_controller/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/ros_controllers/gripper_action_controller/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/vision_opencv-noetic/image_geometry/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/ros_controllers/imu_sensor_controller/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/ros_controllers/joint_state_controller/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/ros_controllers/joint_trajectory_controller/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/saya_sensor/laser_filters-noetic-devel/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/ros_controllers/position_controllers/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/robot_localization/include/**",
+        "/home/asimov/cyientbot_ws/src/cyient_bot/ros_controllers/velocity_controllers/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

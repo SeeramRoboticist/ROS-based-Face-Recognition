@@ -1,0 +1,12 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/asimov/cyientbot_ws/devel/lib/python3/dist-packages",
+        "/home/asimov/IRA_V2_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/asimov/cyientbot_ws/devel/lib/python3/dist-packages",
+        "/home/asimov/IRA_V2_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ]
+}
