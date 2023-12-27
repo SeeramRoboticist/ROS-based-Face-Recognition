@@ -139,7 +139,7 @@ class FaceRecognition:
 
 if __name__ == "__main__":
 
-    rospy.init_node("face_reg", anonymous=True)
+    rospy.init_node("face_reg_new", anonymous=True)
     obj = FaceRecognition()
     rospy.spin()
         
