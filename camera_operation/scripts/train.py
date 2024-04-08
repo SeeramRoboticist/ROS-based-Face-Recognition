@@ -12,14 +12,14 @@ from std_msgs.msg import Bool, String
 
 from time import sleep
 
-DEFAULT_ENCODINGS_PATH = Path("/home/asimov/IRA_V2_ws/src/Dropbox/model/encodings.pkl")
+DEFAULT_ENCODINGS_PATH = Path("/home/sriram54/face_reg/output/encodings.pkl")
 process_start = False
 
 
 def encode_known_faces(model: str = "hog", encodings_location: Path = DEFAULT_ENCODINGS_PATH) -> None:
     names = []
     encodings = []
-    for filepath in Path("/home/asimov/IRA_V2_ws/src/Dropbox/training").glob("*/*"):
+    for filepath in Path("/home/sriram54/face_reg/training").glob("*/*"):
         name = filepath.parent.name
         image = face_recognition.load_image_file(filepath)
 
