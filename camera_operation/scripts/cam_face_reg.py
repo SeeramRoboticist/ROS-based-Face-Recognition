@@ -14,14 +14,11 @@ import time
 
 video_capture = cv2.VideoCapture(0)
 
-DEFAULT_ENCODINGS_PATH = Path("/home/asimov/face_reg_ws/src/output/encodings.pkl")
+DEFAULT_ENCODINGS_PATH = Path("/home/sriram54/face_reg/output/encodings.pkl")
 
 BOUNDING_BOX_COLOR = "blue"
 TEXT_COLOR = "white"
 
-# Path("training").mkdir(exist_ok=True)
-# Path("output").mkdir(exist_ok=True)
-# Path("validation").mkdir(exist_ok=True)
 
 def face_reg():
 
@@ -32,31 +29,10 @@ def face_reg():
 
         ret, frame = video_capture.read()
 
-        degree_rotation = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
-        flip = cv2.flip(degree_rotation, 1)
+        cv2.imshow('lol', frame)
 
-
-        cv2.imshow('lol', flip)
-
-        recognize_faces(image_location=flip)
-
-        # print(name)
-        # print(bounding_box)
-
-        # for ((top, right, bottom, left)) in zip (bounding_box):
-
-            # print(name)
-
-            # cv2.rectangle(frame, (left, top), (right, bottom),
-            #               (0, 255, 0), 2)
-            
-            # if name == "Unknown":
-            #     cv2.putText(frame, "Visitor", (left, bottom), cv2.FONT_HERSHEY_SIMPLEX, 1.1, (0, 255, 0), 3)
-
-            # else:
-            #     cv2.putText(frame, name, (left, bottom), cv2.FONT_HERSHEY_SIMPLEX, 1.1, (0, 0, 255), 3)
-    
+        recognize_faces(image_location=frame)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
 
@@ -66,25 +42,6 @@ def face_reg():
     cv2.destroyAllWindows()
 
 
-
-# def encode_known_faces(model: str = "hog", encodings_location: Path = DEFAULT_ENCODINGS_PATH) -> None:
-#     names = []
-#     encodings = []
-#     for filepath in Path("/home/sriram54/face_recognizer/training").glob("*/*"):
-#         name = filepath.parent.name
-#         image = face_recognition.load_image_file(filepath)
-
-#         face_locations = face_recognition.face_locations(image, model=model)
-#         face_encodings = face_recognition.face_encodings(image, face_locations)
-
-#         for encoding in face_encodings:
-#             names.append(name)
-#             encodings.append(encoding)
-
-#     name_encodings = {"names": names, "encodings": encodings}
-#     with encodings_location.open(mode="wb") as f:
-#         pickle.dump(name_encodings, f)
-#     print("completed")
 
 def recognize_faces(
     image_location,
