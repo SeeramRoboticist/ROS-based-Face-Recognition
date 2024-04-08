@@ -18,7 +18,7 @@ from sensor_msgs.msg import Image
 
 from std_msgs.msg import String, Bool
 
-DEFAULT_ENCODINGS_PATH = Path("/home/asimov/face_reg_ws/src/output/encodings.pkl")
+DEFAULT_ENCODINGS_PATH = Path("/home/sriram54/face_reg_ws/src/output/encodings.pkl")
 
 class FaceRecognition:
 
@@ -47,6 +47,9 @@ class FaceRecognition:
             self.recognition_control = False
 
     def image_callback(self, camera_data):
+
+        # Here my Image input has two images which I need to crop to do furter operation,
+        # You can directly use the camera_data directly.
 
         frame_src = self.bridge.imgmsg_to_cv2(camera_data, "bgr8")
         (h_src, w_src) = frame_src.shape[:2]
