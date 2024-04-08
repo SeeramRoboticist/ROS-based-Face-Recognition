@@ -1,26 +1,25 @@
+#!/usr/bin/env python
+
 from pathlib import Path
 
 import face_recognition
 
 import pickle
 
-from collections import Counter
+import rospy
 
-from PIL import Image, ImageDraw
+from std_msgs.msg import Bool, String
 
-DEFAULT_ENCODINGS_PATH = Path("/home/asimov/face_reg_ws/src/output/encodings.pkl")
+from time import sleep
 
-BOUNDING_BOX_COLOR = "blue"
-TEXT_COLOR = "white"
+DEFAULT_ENCODINGS_PATH = Path("/home/asimov/IRA_V2_ws/src/Dropbox/model/encodings.pkl")
+process_start = False
 
-# Path("training").mkdir(exist_ok=True)
-# Path("output").mkdir(exist_ok=True)
-# Path("validation").mkdir(exist_ok=True)
 
 def encode_known_faces(model: str = "hog", encodings_location: Path = DEFAULT_ENCODINGS_PATH) -> None:
     names = []
     encodings = []
-    for filepath in Path("/home/asimov/face_reg_ws/src/training").glob("*/*"):
+    for filepath in Path("/home/asimov/IRA_V2_ws/src/Dropbox/training").glob("*/*"):
         name = filepath.parent.name
         image = face_recognition.load_image_file(filepath)
 
@@ -36,78 +35,27 @@ def encode_known_faces(model: str = "hog", encodings_location: Path = DEFAULT_EN
         pickle.dump(name_encodings, f)
     print("completed")
 
-def recognize_faces(
-    image_location: str,
-    model: str = "hog",
-    encodings_location: Path = DEFAULT_ENCODINGS_PATH,
-) -> None:
-    with encodings_location.open(mode="rb") as f:
-        loaded_encodings = pickle.load(f)
+    return "done"
 
-    input_image = face_recognition.load_image_file(image_location)
+def train_control_cb(data):
+    global process_start
+    if data.data == True:
+        process_start = True
+    else:
+        process_start = False
 
-    input_face_locations = face_recognition.face_locations(
-        input_image, model=model
-    )
-    input_face_encodings = face_recognition.face_encodings(
-        input_image, input_face_locations
-    )
+if __name__ == "__main__":
 
-    pillow_image = Image.fromarray(input_image)
-    draw = ImageDraw.Draw(pillow_image)
-
-    for bounding_box, unknown_encoding in zip(
-        input_face_locations, input_face_encodings
-    ):
-        name = _recognize_face(unknown_encoding, loaded_encodings)
-        if not name:
-            name = "Unknown"
-        # print(name, bounding_box)
-        _display_face(draw, bounding_box, name)
-
-    del draw
-    pillow_image.show()
-
-
-def _recognize_face(unknown_encoding, loaded_encodings):
-    boolean_matches = face_recognition.compare_faces(
-        loaded_encodings["encodings"], unknown_encoding
-    )
-    votes = Counter(
-        name
-        for match, name in zip(boolean_matches, loaded_encodings["names"])
-        if match
-    )
-    if votes:
-        return votes.most_common(1)[0][0]
+    rospy.init_node("train_face", anonymous=True)
+    rospy.Subscriber("train_control", Bool, train_control_cb, queue_size=1)
+    pub = rospy.Publisher('/train_result', String, queue_size=1)
+    while not rospy.is_shutdown():
+        sleep(1)
+        if process_start:
+            res = encode_known_faces()
+            process_start = False
+            if res == "done":
+                pub.publish("done")
+            else:
+                pub.publish("not_done")
     
-def _display_face(draw, bounding_box, name):
-    top, right, bottom, left = bounding_box
-    draw.rectangle(((left, top), (right, bottom)), outline=BOUNDING_BOX_COLOR)
-    text_left, text_top, text_right, text_bottom = draw.textbbox(
-        (left, bottom), name
-    )
-    draw.rectangle(
-        ((text_left, text_top), (text_right, text_bottom)),
-        fill="blue",
-        outline="blue",
-    )
-    draw.text(
-        (text_left, text_top),
-        name,
-        fill="white",
-    )
-
-def validate(model: str = "hog"):
-    for filepath in Path("/home/sriram54/face_recognizer/training").rglob("*"):
-        if filepath.is_file():
-            recognize_faces(
-                image_location=str(filepath.absolute()), model=model
-            )
-
-
-# recognize_faces("/home/sriram54/Downloads/lol.jpeg")
-
-encode_known_faces()
-            
-# validate()
